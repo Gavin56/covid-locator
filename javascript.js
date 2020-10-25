@@ -22,15 +22,19 @@ $(document).ready(function () {
         }
 
         function showUserPosition(position) {
-            var lat = position.coords.latitude.toFixed(2);
-            var lon = position.coords.longitude.toFixed(2);
-            console.log(lat);
-            console.log(lon);
+            var userLat = position.coords.latitude.toFixed(2);
+            var userLng = position.coords.longitude.toFixed(2);
 
-            var stringLatLon = lat + "," + lon;
-            console.log(stringLatLon);
+            userLat = parseFloat(userLat);
+            userLng = parseFloat(userLng);
 
-            var queryURL = "https://discover.search.hereapi.com/v1/discover?apikey=" + hereAPPID + "&q=Covid&at=" + stringLatLon + "&limit=10";
+            console.log(userLat);
+            console.log(userLng);
+
+            var stringLatLng = userLat + "," + userLng;
+            console.log(stringLatLng);
+
+            var queryURL = "https://discover.search.hereapi.com/v1/discover?apikey=" + hereAPPID + "&q=Covid&at=" + stringLatLng + "&limit=10";
 
             $.ajax({
                 url: queryURL,
@@ -38,12 +42,12 @@ $(document).ready(function () {
             }).then(function (response) {
                 console.log(response);
                 getNearestSiteLocation(response);
-
     
                 var siteLat = response.items[0].position.lat;
-                var siteLon = response.items[0].position.lng;
+                var siteLng = response.items[0].position.lng;
 
-                initMap(siteLat, siteLon);
+                siteLat = parseFloat(siteLat);
+                siteLng = parseFloat(siteLng);
 
                 $("#other-location-info").empty();
                 var arrayLength = response.items.length;
@@ -54,58 +58,46 @@ $(document).ready(function () {
                     locationNameP.text(subStringLocationName);
                     $("#other-location-info").append(locationNameP);
                 }
+
+                function initMap() {
+                    const directionsRenderer = new google.maps.DirectionsRenderer();
+                    const directionsService = new google.maps.DirectionsService();
+                    const map = new google.maps.Map(document.getElementById("map"), {
+                        zoom: 13,
+                        center: { lat: userLat, lng: userLng },
+                    });
+                    directionsRenderer.setMap(map);
+                    calculateAndDisplayRoute(directionsService, directionsRenderer);
+        
+                }
+        
+                function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+                    directionsService.route(
+                        //We can use numbers, basic variables, and object properties to plug coordinates into the map renderer (cannot use functions).             
+                        //We need to somehow extract the user coordinates and the testing site coordinates from the previous code and plug them into here:
+                        {
+                            origin: { lat: userLat, lng: userLng}, //User coordinates//
+                            destination: { lat: siteLat, lng: siteLng}, //..........................Site coordinates//
+                            travelMode: google.maps.TravelMode.DRIVING,
+                        },
+                        (response, status) => {
+                            if (status === "OK") {
+                                directionsRenderer.setDirections(response);
+                            } else {
+                                window.alert("Directions request failed due to " + status);
+                            }
+                        }
+                    );
+                }
+        
+                $().ready(function() {
+                    initMap();
+                })
+        
             });
         }
 
         getUserLocation();
         
-        var placeURL= "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Museum%20of%20Contemporary%20Art%20Australia&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyB5Jt_zYBv_3Wcr0xp_SR2RHWvy65WPUBc"
-        $.ajax({
-            url: placeURL,
-            method: "GET"
-        }).then(function (response) {
-            console.log(response);
-        });
-
-        // Initialize and add the map
-        function initMap(latitude, longitude) {
-            // The location of Uluru
-            const covidTestingSite = { lat: latitude, lng: longitude };
-            // The map, centered at covidTestingSite
-            const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 15,
-                center: covidTestingSite,
-            });
-            // The marker, positioned at covidTestingSite
-            const marker = new google.maps.Marker({
-                position: covidTestingSite,
-                map: map,
-            });
-        }
     });
 });
-
-
-/*
-        function handleLocation() {
-            //Get user location and return lat/lon to ajax call:
-
-            var positionCoord = showPosition();
-            var hereAPPID = "cahABOyt5yZgdm70nIfb";
-            var queryURL = "https://discover.search.hereapi.com/v1/discover?apikey=" + hereAPPID + "&q=Covid&at=" + positionCoord + "&limit=10";
-
-            $.ajax({
-                url: queryURL,
-                method: "GET"
-            }).then(function (response) {
-                console.log(response);
-            });
-        }
-
-        $("button").on("click", handleLocation());
-*/
-//Input field and button sibling to use the input value to insert into ajax call
-// Set variables for API Keys
-// Setup API urls
-//googlmaps API find proper covidAPI
-
