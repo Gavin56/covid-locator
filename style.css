@@ -1,0 +1,86 @@
+* {
+  box-sizing: border-box;
+}
+button {
+  box-shadow: 0px 0px 0px 2px #9fb4f2;
+  background: linear-gradient(to bottom, #619eff 5%, #0877ff 100%);
+  background-color: #619eff;
+  border-radius: 5px;
+  border: 1px solid #4e6096;
+  display: inline-block;
+  cursor: pointer;
+  color: #f2f2f2;
+  font-family: Arial;
+  font-size: 19px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #283966;
+}
+button:hover {
+  background: linear-gradient(to bottom, #0877ff 5%, #619eff 100%);
+  background-color: #0877ff;
+}
+button:active {
+  position: relative;
+  top: 1px;
+}
+
+.center {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+
+#guide-me-btn {
+  width: 100%;
+  height: 40px;
+
+  margin-top: 12px;
+}
+
+h6 {
+  margin: auto;
+}
+#location-box {
+  background: rgb(246, 246, 246);
+  padding: 3px 0 5px 5px;
+  height: 276px;
+  width: 100%;
+  border-radius: 5px;
+}
+#location-box h5 {
+  text-align: center;
+}
+
+main {
+  height: 340px;
+  margin-left: 0;
+}
+#map {
+  height: 340px;
+  width: 100%;
+  background: lightgray;
+  border-radius: 5px;
+}
+#other-locations {
+  clear: both;
+  margin-top: 20px;
+  height: 300px;
+  overflow: auto;
+  border-radius: 5px;
+  padding: 25px;
+}
+#srch-button {
+  margin-left: -20px;
+}
+
+#txt-input {
+  width: 260px;
+  border: 1px solid lightgray !important;
+  height: 25px;
+
+  /* float: left; */
+}
+
+#txt-input:focus {
+  border-color: blue !important;
+}
