@@ -1,27 +1,68 @@
 * {
   box-sizing: border-box;
 }
-button {
-  box-shadow: 0px 0px 0px 2px #9fb4f2;
-  background: linear-gradient(to bottom, #619eff 5%, #0877ff 100%);
-  background-color: #619eff;
-  border-radius: 5px;
-  border: 1px solid #4e6096;
-  display: inline-block;
-  cursor: pointer;
-  color: #f2f2f2;
-  font-family: Arial;
-  font-size: 19px;
-  text-decoration: none;
-  text-shadow: 0px 1px 0px #283966;
+
+/* body {
+  background-image: url('https://github.com/Gavin56/images/blob/main/bactfinal.png?raw=true');
+} */
+
+#modalHeader {
+  text-align: center;
 }
-button:hover {
-  background: linear-gradient(to bottom, #0877ff 5%, #619eff 100%);
-  background-color: #0877ff;
+
+header.center {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
-button:active {
+
+.container {
+  margin: auto;
+}
+
+#title {
+  font-size: min(max(1rem, 2vw), 40px);
+  text-align: center;
+  font-family: 'Teko', sans-serif;
+  letter-spacing: 3px;
+  word-spacing: 3px;
+  width:80%;
+}
+
+
+#searchButton {
+  font-family: 'Rokkitt', serif;
+  font-weight: 300px;
+  box-shadow: 0px 5px 5px grey; 
+}
+
+.btn:active {
   position: relative;
-  top: 1px;
+  top: 2px;
+}
+
+#clearVisited {
+  font-family: 'Rokkitt', serif;
+  font-weight: 300px;
+}
+
+.nav-wrapper {
+  background-color: rgb(29, 90, 151)
+}
+
+.selectBtn{
+  float: right;
+  font-family: 'Rokkitt', serif;
+  font-weight: 300px;
+}
+
+#visitButton {
+  margin-bottom: 40px;
+  font-family: 'Rokkitt', serif;
+  font-weight: 300px;
+}
+
+.selected {
+  background-color: rgb(145, 255, 191);
 }
 
 .center {
@@ -39,28 +80,100 @@ button:active {
 
 h6 {
   margin: auto;
+  padding-top: 20px;
+  font-style: italic;
 }
-#location-box {
+
+#visited-box {
   background: rgb(246, 246, 246);
-  padding: 3px 0 5px 5px;
+  padding: 3px 0 5px 10px;
   height: 276px;
   width: 100%;
   border-radius: 5px;
-}
-#location-box h5 {
+  overflow: auto;
   text-align: center;
+}
+
+#visited-box-info p{
+  font-style: italic;
+}
+
+#visited-box h5 {
+  letter-spacing: 3px;
+  word-spacing: 5px;
+  font-family: 'Teko', sans-serif;
+  text-align: center;
+  background-color: rgb(29, 90, 151);
+  margin-right: 10px;
+  border-radius: 5px;
+  border: 2px solid black;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: white;
+}
+
+.footer {
+  border-top: 1px black solid;
+  bottom: 0;
+  width: 100%;
+  background-color: rgb(29, 90, 151);
+  color: white;
+  text-align: center;
+  position: fixed;
+  z-index: 1;
+  font-size: 10px;
+}
+
+.location-name {
+  line-height: 38px;
+  border-radius: 10px;
+  padding-left: 10px;
 }
 
 main {
   height: 340px;
   margin-left: 0;
 }
+
 #map {
-  height: 340px;
+  height: 360px;
   width: 100%;
   background: lightgray;
+  border: 1px black solid;
   border-radius: 5px;
+  margin-bottom: 30px;
 }
+
+#mapPre-renderText {
+  text-align: center;
+  margin-top: 20%;
+  font-style: italic;
+}
+
+#mapArea {
+  text-align: center;
+}
+
+#locations {
+  padding-top: 5px;
+  border-radius: 10px;
+  margin-top: 0;
+}
+
+#locations-header {
+  letter-spacing: 3px;
+  word-spacing: 5px;
+  font-family: 'Teko', sans-serif;
+  text-align: center;
+  background-color: rgb(29, 90, 151);
+  margin-right: 10px;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: white;
+}
+
 #other-locations {
   clear: both;
   margin-top: 20px;
@@ -77,10 +190,16 @@ main {
   width: 260px;
   border: 1px solid lightgray !important;
   height: 25px;
-
-  /* float: left; */
 }
 
 #txt-input:focus {
   border-color: blue !important;
+}
+
+.responsive-image {
+  position: relative;
+  height: 100%;
+  left: 0;
+  top: 0;
+  border: 1px solid black;
 }
