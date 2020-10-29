@@ -110,8 +110,6 @@ main {
   width: 260px;
   border: 1px solid lightgray !important;
   height: 25px;
-
-  /* float: left; */
 }
 
 #txt-input:focus {
