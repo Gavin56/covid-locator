@@ -1,71 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Not YEEET</title>
-    <link rel="stylesheet" href="style.css" />
-    <!-- Materialize link -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-    />
-  </head>
-  <body>
-    <!-- Nav bar-->
-    <nav class="blue">
-      <a href="#" class="brand-logo">Covid-19</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="#">COVID NEWS</a></li>
-        <li><a href="#">CDC Guidelines</a></li>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>COVID Testing Site Locator</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Materialize link -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rokkitt:wght@500&family=Teko:wght@600&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <!-- Dropdown Structure used for icon-->
+  <ul id="dropdown1" class="dropdown-content">
+    <li><a href="https://www.cdc.gov/coronavirus/2019-ncov/index.html" target="_blank">CDC Guidelines</a></li>
+  </ul>
+  <nav>
+    <div class="nav-wrapper">
+      <img src="./assets/Covid_UN Nations.png" class="brand-logo left responsive-image"></img>
+      <a href="#" class="center brand-logo" id="title">COVID Testing Site Locator</a>
+      <ul class="right">
+        <!-- Dropdown Trigger -->
+        <li><a class="dropdown-trigger" href="#" data-target="dropdown1"><i class="material-icons right">dehaze</i></a>
+        </li>
       </ul>
-    </nav>
+    </div>
+  </nav>
 
-    <!-- -->
-    <!-- Main -->
-    <header class="center">
-      <!-- Input form with a submit button -->
-      <h2>COVID Testing Site Locator</h2>
-      <button id="searchButton">Find A Location Near Me</button>
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4 id="modalHeader">Welcome to the COVID Testing Site Locator!</h4>
+      <p>This app allows you to find available COVID Testing Sites near you with the click
+        of a single button. Clicking the button labeled "Find A Location Near Me" will render a list of locations 
+        under the box labeled "Locations Near You" and generate a map inside the gray box, starting with the nearest location.
+        Clicking through the "Select" buttons in the locations list will render a new map for the selected location. 
+        Under the map, a "Visit Selected" button is available that allows you to store locations in your device's local storage and render 
+        them inside of the box labeled "Visited Locations", so you can keep track of which locations you've visited if any. Feel free to 
+        clear out the visited locations list at any point using the "Clear Visited" button.
+      </p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn">Cool, got it!</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <header class="col s12 center">
+      <a id="searchButton" class="waves-effect waves-light btn"><i class="material-icons right">location_on</i>Find A
+        Location Near Me</a>
     </header>
+  </div>
 
-    <!-- Nearest Location Output -->
-    <main class="container row">
-      <!-- Map div -->
-      <div class="col s12 m7">
+  <!-- Map div -->
+  <div class="row">
+
+    <div class="col s12 m6">
+
+      <div id="locations" class="card-panel z-depth-3">
+        <h4 id="locations-header">Locations Near You</h4>
+        <div id="nearest-location-info"></div>
+        <div id="other-location-info"></div>
+      </div>
+
+    </div>
+
+
+    <aside class="col s12 m6">
+
+      <div id="mapArea">
         <div id="map" class="z-depth-3">
           <p id="mapPre-renderText">A map will be generated here when you click "Find A Location Near Me"</p>
         </div>
+        <div id="visitButtonDiv"></div>
       </div>
-      <!-- Location Box-->
-      <aside class="col s12 m5">
-        <div class="row">
-          <div id="directions-box" class="z-depth-2">
-            <h5>Recently Viewed Articles:</h5>
-            <div id="directions-box-info"></div>
-          </div>
-          <div class="row">
-            <div class="col s12">
-            </div>
-          </div>
-        </div>
-      </aside>
-    </main>
-    <div class="row container">
-      <div class="col s12">
-        <div id="locations" class="card-panel z-depth-3">          
-          <h4 id="locations-header">Locations Near You:</h4>
-          <div id="nearest-location-info"></div>
-          <div id="other-location-info"></div>
+
+
+      <div class="row">
+        <div id="visited-box" class="z-depth-2">
+          <h5>Visited Locations</h5>
+          <div id="visited-box-info"></div>
         </div>
       </div>
+
+    </aside>
+  </div>
+
+  <footer class="row">
+    <div class="footer">
+      <p id="footerText">Wear a mask, stay safe.</p>
     </div>
-    <!-- address info -->
+  </footer>
 
-    <!-- Other LOCATIONs -->
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5Jt_zYBv_3Wcr0xp_SR2RHWvy65WPUBc" defer></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="javascript.js"></script>
-  </body>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5Jt_zYBv_3Wcr0xp_SR2RHWvy65WPUBc" defer></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="javascript.js"></script>
+</body>
+
 </html>
