@@ -1,9 +1,13 @@
 $(document).ready(function () {
+
+    //Dropdown created for CDC Guidelines and App instructions.
     $(".dropdown-trigger").dropdown();
     $('.modal').modal();
     
+    //if the app was previously visited, it will save to local storage as a boolean value.
     var visitedApp = JSON.parse(localStorage.getItem("visitedApp")) || false;
 
+    //if the boolean is false the model will display upon opening the page.
     if(visitedApp === false) {
         $('.modal').modal();
         $('#modal1').modal('open');
@@ -18,7 +22,7 @@ $(document).ready(function () {
     //if data is stored, we globally get our saved date and location name with the key "visited" and stores it in an array, or creates a new one if empty.
     var data = JSON.parse(localStorage.getItem("visited")) || [];
 
-    // if no data is stored, display "You have no previously visited locations."
+    //if no data is stored, display "You have no previously visited locations."
     if (data.length) {
         renderVisited();
     } else {
@@ -44,7 +48,7 @@ $(document).ready(function () {
         $("#clearVisited").text("Clear Visited");
     };
 
-    // when the clear visted button is clicked, the location box will empty and local storage will be cleared.
+    //When the clear visted button is clicked, the location box will empty and local storage will be cleared.
     $(document).on("click", "#clearVisited", function () {
         $("#locations-box").empty();
         data = [];
@@ -77,7 +81,7 @@ $(document).ready(function () {
 
             var locationName = response.items[0].address.label;
 
-            //Trim the string to only have the necessary information.//
+            //Trim the string to only have the necessary information.
             locationName = locationName.substr(23);
             locationName = locationName.substr(0, locationName.length - 15);
 
@@ -87,35 +91,35 @@ $(document).ready(function () {
             $("#nearest-location-info").append(locationNameP);
 
 
-            //Giving new attributes with values to the rendered P elements.//
+            //Giving new attributes with values to the rendered P elements.
             locationNameP.attr("latitude", response.items[0].position.lat);
             locationNameP.attr("longitude", response.items[0].position.lng);
 
-            //Generate a Select button for each P tag.//
+            //Generate a Select button for each P tag.
             var selectButton = $("<a id='nearestSelectBtn' class='waves-effect waves-light btn selectBtn col s12 m2'>").text("Select");
             selectButton.attr("href", "#map");
             $("#nearest-location-info").append(selectButton);
         }
 
         //This function takes the geolocation position and plugs it into the HERE API to retrieve nearby locations, then passes the user's location and 
-        //the site locations into a Google Maps renderer.//
+        //the site locations into a Google Maps renderer.
         function showUserPosition(position) {
             var userLat = position.coords.latitude.toFixed(2);
             var userLng = position.coords.longitude.toFixed(2);
 
-            //To turn strings into accurate numbers, we use parseFloat.//
+            //To turn strings into accurate numbers, we use parseFloat.
             userLat = parseFloat(userLat);
             userLng = parseFloat(userLng);
 
-            // console.log(userLat);
-            // console.log(userLng);
+            //console.log(userLat);
+            //console.log(userLng);
 
             var stringLatLng = userLat + "," + userLng;
-            // console.log(stringLatLng);
+            //console.log(stringLatLng);
 
             var queryURL = "https://discover.search.hereapi.com/v1/discover?apikey=HwBOddp2-8jNUncGQl7uOxplh5Pw_EeGf0BmppjvlpE&q=Covid&at=" + stringLatLng + "&limit=10";
 
-            //HERE Developer API ajax call
+            //HERE Developer API ajax call.
             $.ajax({
                 url: queryURL,
                 method: "GET"
@@ -137,7 +141,7 @@ $(document).ready(function () {
                 $("#other-location-info").prepend(otherLocationHeader);
                 otherLocationHeader.html("<strong> Other Locations: </strong>");
 
-                //Loop for creating other site locations://
+                //Loop for creating other site locations
                 var arrayLength = response.items.length;
 
                 for (i = 1; i < arrayLength; i++) {
@@ -145,13 +149,13 @@ $(document).ready(function () {
                     var locationNameDiv = $("<div class='row'>");
                     var locationNameP = $("<p class='location-name col s12 m10'>");
 
-                    //Giving new attributes with values to the P elements, just like we did on lines 75 and 76.//
+                    //Giving new attributes with values to the P elements, just like we did on lines 75 and 76.
                     locationNameP.attr("latitude", response.items[i].position.lat);
                     locationNameP.attr("longitude", response.items[i].position.lng);
 
                     //console.log(locationNameP);
 
-                    //Eliminates unnecessary text content from the text returned by the AJAX call.//
+                    //Eliminates unnecessary text content from the text returned by the AJAX call.
                     locationName = locationName.substr(23);
                     locationName = locationName.substr(0, locationName.length - 15);
                     locationNameP.text(locationName);
@@ -160,7 +164,7 @@ $(document).ready(function () {
                     $("#other-location-info").append(locationNameDiv);
                     $(locationNameDiv).append(locationNameP);
 
-                    //Creates a horizontal divide between P elements.//
+                    //Creates a horizontal divide between P elements.
                     $(locationNameDiv).append($("<hr>"));
 
                     var selectButton = $("<a class='waves-effect waves-light btn selectBtn col s12 m2'>").text("Select");
@@ -168,7 +172,7 @@ $(document).ready(function () {
                     $(locationNameDiv).append(selectButton);
                 }
 
-                //this function is used to render the map to the screen. it uses prebuilt google functions which were able to be used after getting 
+                //This function is used to render the map to the screen. it uses prebuilt google functions which were able to be used after getting 
                 //an api key and call to the gogle maps api.  here we can control the zoom of the map at its initial rendering, as well as pass 
                 //the user's latitude and longitude to the map. The calculateAndDisplay function is called and all neccessary parameters are passed. 
                 function initMap(siteLat, siteLng) {
@@ -182,7 +186,7 @@ $(document).ready(function () {
                     calculateAndDisplayRoute(directionsService, directionsRenderer, siteLat, siteLng);
                 }
 
-                //here the constants defined from initMap are passed along with the users lat and lon for location.  This allows the google map on screen 
+                //Here the constants defined from initMap are passed along with the users lat and lon for location.  This allows the google map on screen 
                 //to display a route from the users location to their highlighted desired destination.  Should for some reason the map fails to render, be it
                 //a client issue or an issue on google's end, the status will be returned to the user.
                 function calculateAndDisplayRoute(directionsService, directionsRenderer, siteLat, siteLng) {
@@ -190,8 +194,8 @@ $(document).ready(function () {
                         //We can use numbers, basic variables, and object properties to plug coordinates into the map renderer (cannot use functions).             
                         //We need to somehow extract the user coordinates and the testing site coordinates from the previous code and plug them into here:
                         {
-                            origin: { lat: userLat, lng: userLng }, //User coordinates//
-                            destination: { lat: siteLat, lng: siteLng }, //Site coordinates//
+                            origin: { lat: userLat, lng: userLng }, //User coordinates
+                            destination: { lat: siteLat, lng: siteLng }, //Site coordinates
                             travelMode: google.maps.TravelMode.DRIVING,
                         },
 
@@ -213,10 +217,10 @@ $(document).ready(function () {
                 $("#visitButtonDiv").append($("<a id='visitButton' class='waves-effect waves-light btn'>"))
                 $("#visitButton").text("Visit Selected");
 
-                //this button when clicked has the highlighted selected class.  The map of the location is rendered to the user with the route.
+                //This button when clicked has the highlighted selected class.  The map of the location is rendered to the user with the route.
                 $(document).on("click", ".selectBtn", function () {
 
-                    //Discovered this through messing around with the window object in the console.//
+                    //This selects the address which is a sibling of the select button.
                     var siteLat = $(this).siblings("p")[0].attributes[1].nodeValue;
                     var siteLng = $(this).siblings("p")[0].attributes[2].nodeValue;
 
@@ -228,7 +232,7 @@ $(document).ready(function () {
                     // console.log(siteLat, siteLng)
                     initMap(siteLat, siteLng)
 
-                    //Dynamically adds a class to whichever location we click and highlights it.//
+                    //Dynamically adds a class to whichever location we click and highlights it.
                     $(".selected").removeClass("selected");
                     $(this).siblings("p").addClass("selected");
                 });
@@ -238,7 +242,7 @@ $(document).ready(function () {
     });
 
     //This button puts the selected P element text content and the current date inside of an object and then saves the object 
-    //to an array and saves it in local storage.//
+    //to an array and saves it in local storage.
     $(document).on("click", "#visitButton", function () {
         var visitedName = $(".selected").text();
         visitedName = visitedName.substr(0, visitedName.length - 6);
