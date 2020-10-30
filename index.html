@@ -17,9 +17,10 @@
   <!-- Dropdown Structure used for icon-->
   <ul id="dropdown1" class="dropdown-content">
     <li><a href="https://www.cdc.gov/coronavirus/2019-ncov/index.html" target="_blank">CDC Guidelines</a></li>
+    <li><a class="modal-trigger" href="#modal1">App Instructions</a></li>
   </ul>
   <nav>
-    <div class="nav-wrapper">
+    <div class="nav-wrapper" id="navbar">
       <img src="./assets/Covid_UN Nations.png" class="brand-logo left responsive-image"></img>
       <a href="#" class="center brand-logo" id="title">COVID Testing Site Locator</a>
       <ul class="right">
@@ -62,7 +63,8 @@
 
       <div id="locations" class="card-panel z-depth-3">
         <h4 id="locations-header">Locations Near You</h4>
-        <div id="nearest-location-info"></div>
+        <div id="nearest-location-info" class="row">
+        </div>
         <div id="other-location-info"></div>
       </div>
 
@@ -104,4 +106,3 @@
   <script src="javascript.js"></script>
 </body>
 
-</html>

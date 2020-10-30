@@ -1,6 +1,19 @@
 $(document).ready(function () {
-
     $(".dropdown-trigger").dropdown();
+    $('.modal').modal();
+    
+    var visitedApp = JSON.parse(localStorage.getItem("visitedApp")) || false;
+
+    if(visitedApp === false) {
+        $('.modal').modal();
+        $('#modal1').modal('open');
+    }
+    
+    $(document).on("click", ".modal-close", function() {
+        visitedApp = true;
+        localStorage.setItem("visitedApp", JSON.stringify(visitedApp))
+    });
+    
 
     //if data is stored, we globally get our saved date and location name with the key "visited" and stores it in an array, or creates a new one if empty.
     var data = JSON.parse(localStorage.getItem("visited")) || [];
@@ -9,8 +22,7 @@ $(document).ready(function () {
     if (data.length) {
         renderVisited();
     } else {
-        $('.modal').modal();
-        $('#modal1').modal('open');
+
         $("#visited-box-info").text("You have no previously visited locations.");
         $("#visited-box-info").attr("style", "text-align: center");
     }
@@ -36,7 +48,7 @@ $(document).ready(function () {
     $(document).on("click", "#clearVisited", function () {
         $("#locations-box").empty();
         data = [];
-        localStorage.clear();
+        localStorage.removeItem("visited");
         $("#visited-box-info").text("You have no previously visited locations.");
     })
 
@@ -56,11 +68,11 @@ $(document).ready(function () {
 
         //This renders the nearest testing site to the users location.
         function getNearestSiteLocation(response) {
-            $("#nearest-location-info").empty();
+            // $("#nearest-location-info").empty();
 
             var nearestLocationHeader = $("<h6>");
             $("#nearest-location-info").prepend(nearestLocationHeader);
-            nearestLocationHeader.text("Nearest Location:");
+            nearestLocationHeader.html("<strong> Nearest Location: </strong>");
 
 
             var locationName = response.items[0].address.label;
@@ -70,7 +82,7 @@ $(document).ready(function () {
             locationName = locationName.substr(0, locationName.length - 15);
 
 
-            var locationNameP = $("<p class='selected location-name'>");
+            var locationNameP = $("<p class='selected location-name col s12 m10'>");
             locationNameP.text(locationName);
             $("#nearest-location-info").append(locationNameP);
 
@@ -80,8 +92,9 @@ $(document).ready(function () {
             locationNameP.attr("longitude", response.items[0].position.lng);
 
             //Generate a Select button for each P tag.//
-            var selectButton = $("<a class='waves-effect waves-light btn selectBtn'>").text("Select");
-            $(locationNameP).append(selectButton);
+            var selectButton = $("<a id='nearestSelectBtn' class='waves-effect waves-light btn selectBtn col s12 m2'>").text("Select");
+            selectButton.attr("href", "#map");
+            $("#nearest-location-info").append(selectButton);
         }
 
         //This function takes the geolocation position and plugs it into the HERE API to retrieve nearby locations, then passes the user's location and 
@@ -122,15 +135,15 @@ $(document).ready(function () {
                 var otherLocationHeader = $("<h6>");
 
                 $("#other-location-info").prepend(otherLocationHeader);
-                otherLocationHeader.text("Other Locations:");
+                otherLocationHeader.html("<strong> Other Locations: </strong>");
 
                 //Loop for creating other site locations://
                 var arrayLength = response.items.length;
 
                 for (i = 1; i < arrayLength; i++) {
                     var locationName = response.items[i].address.label;
-                    var locationNameDiv = $("<div>");
-                    var locationNameP = $("<p class='location-name'>");
+                    var locationNameDiv = $("<div class='row'>");
+                    var locationNameP = $("<p class='location-name col s12 m10'>");
 
                     //Giving new attributes with values to the P elements, just like we did on lines 75 and 76.//
                     locationNameP.attr("latitude", response.items[i].position.lat);
@@ -150,8 +163,9 @@ $(document).ready(function () {
                     //Creates a horizontal divide between P elements.//
                     $(locationNameDiv).append($("<hr>"));
 
-                    var selectButton = $("<a class='waves-effect waves-light btn selectBtn'>").text("Select");
-                    $(locationNameP).append(selectButton);
+                    var selectButton = $("<a class='waves-effect waves-light btn selectBtn col s12 m2'>").text("Select");
+                    selectButton.attr("href", "#map");
+                    $(locationNameDiv).append(selectButton);
                 }
 
                 //this function is used to render the map to the screen. it uses prebuilt google functions which were able to be used after getting 
@@ -203,8 +217,8 @@ $(document).ready(function () {
                 $(document).on("click", ".selectBtn", function () {
 
                     //Discovered this through messing around with the window object in the console.//
-                    var siteLat = $(this).parent("p")[0].attributes[1].nodeValue;
-                    var siteLng = $(this).parent("p")[0].attributes[2].nodeValue;
+                    var siteLat = $(this).siblings("p")[0].attributes[1].nodeValue;
+                    var siteLng = $(this).siblings("p")[0].attributes[2].nodeValue;
 
                     //console.log($(this).parent("p"));
 
@@ -216,7 +230,7 @@ $(document).ready(function () {
 
                     //Dynamically adds a class to whichever location we click and highlights it.//
                     $(".selected").removeClass("selected");
-                    $(this).parent("p").addClass("selected");
+                    $(this).siblings("p").addClass("selected");
                 });
             });
         }
