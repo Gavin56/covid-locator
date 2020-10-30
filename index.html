@@ -17,9 +17,10 @@
   <!-- Dropdown Structure used for icon-->
   <ul id="dropdown1" class="dropdown-content">
     <li><a href="https://www.cdc.gov/coronavirus/2019-ncov/index.html" target="_blank">CDC Guidelines</a></li>
+    <li><a class="modal-trigger" href="#modal1">App Instructions</a></li>
   </ul>
   <nav>
-    <div class="nav-wrapper">
+    <div class="nav-wrapper" id="navbar">
       <img src="./assets/Covid_UN Nations.png" class="brand-logo left responsive-image"></img>
       <a href="#" class="center brand-logo" id="title">COVID Testing Site Locator</a>
       <ul class="right">
@@ -35,14 +36,11 @@
     <div class="modal-content">
       <h4 id="modalHeader">Welcome to the COVID Testing Site Locator!</h4>
       <p>This app allows you to find available COVID Testing Sites near you with the click
-        of a single button. Clicking the button labeled "Find A Location Near Me" will render a list of locations
-        under the box labeled "Locations Near You" and generate a map inside the gray box, starting with the nearest
-        location.
-        Clicking through the "Select" buttons in the locations list will render a new map for the selected location.
-        Under the map, a "Visit Selected" button is available that allows you to store locations in your device's local
-        storage and render
-        them inside of the box labeled "Visited Locations", so you can keep track of which locations you've visited if
-        any. Feel free to
+        of a single button. Clicking the button labeled "Find A Location Near Me" will render a list of locations 
+        under the box labeled "Locations Near You" and generate a map inside the gray box, starting with the nearest location.
+        Clicking through the "Select" buttons in the locations list will render a new map for the selected location. 
+        Under the map, a "Visit Selected" button is available that allows you to store locations in your device's local storage and render 
+        them inside of the box labeled "Visited Locations", so you can keep track of which locations you've visited if any. Feel free to 
         clear out the visited locations list at any point using the "Clear Visited" button.
       </p>
     </div>
@@ -65,7 +63,8 @@
 
       <div id="locations" class="card-panel z-depth-3">
         <h4 id="locations-header">Locations Near You</h4>
-        <div id="nearest-location-info"></div>
+        <div id="nearest-location-info" class="row">
+        </div>
         <div id="other-location-info"></div>
       </div>
 
@@ -104,7 +103,7 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5Jt_zYBv_3Wcr0xp_SR2RHWvy65WPUBc" defer></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <script src="./javascript.js"></script>
+  <script src="javascript.js"></script>
 </body>
 
 </html>
