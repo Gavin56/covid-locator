@@ -43,11 +43,11 @@ This application allows the user to find available COVID Testing Sites near thei
 
 * css is cleaned up and entire site made ewth full mobile first design.
 
-
-
+<br>
 
 ## Website Images
 
 <img src="./assets/Screen Shot 2020-10-30 at 7.40.36 PM.png">
+<hr>
 <img src="./assets/Screen Shot 2020-10-30 at 7.41.00 PM.png">
 <img src="./assets/Screen Shot 2020-10-30 at 7.42.01 PM.png">
