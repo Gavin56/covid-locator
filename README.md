@@ -18,10 +18,32 @@ This application allows the user to find available COVID Testing Sites near thei
 
 ## Major Progress task 2
 
-* The google initMap function was used and given to index.html to display the map. To get this to work the users latitude and longitude 
+* The google initMap function was used and given to index.html to display the map. To get this to work the   
+  users latitude and longitude 
   were passed to the initMap.
 
 * A route is displayed in the map from point A to point B. from the users location to their selected testing site location.
+
+## Major Task 3
+
+* Two keys are saved into local storage. Visited and VisitedApp.
+
+  * Visited is a key that contains the selected location the user chose to visit.
+    This saves their location and date visited to local storaage.
+
+  * VisitedApp is a key that stores a boolean value dependant on whether or not 
+    the user has visited the site.  This way the modal only ever appears once to a new user.
+
+  * This modal can be viewed again by clicking the drop down dehaze icon and ckicking the 
+    guide me button.
+
+## Major Task 4
+
+* HTML, CSS, and javascript filesare commented and cleaned up.  Redundant code removed.
+
+* css is cleaned up and entire site made ewth full mobile first design.
+
+
 
 
 ## Website Images
