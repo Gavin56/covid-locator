@@ -72,7 +72,7 @@ $(document).ready(function () {
 
         //This renders the nearest testing site to the users location.
         function getNearestSiteLocation(response) {
-            // $("#nearest-location-info").empty();
+            $("#nearest-location-info").empty();
 
             var nearestLocationHeader = $("<h6>");
             $("#nearest-location-info").prepend(nearestLocationHeader);
